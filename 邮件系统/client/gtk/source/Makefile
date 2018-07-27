@@ -1,0 +1,2 @@
+main:
+	gcc -o main MainForm_Menu.c EditMailForm.c MainForm_Panel.c EditMailForm_Func.c MainForm_PanelFunc.c EditMailForm_Widget.c EditMailForm_WidgetFuncAddFile.c  MainForm_Tool.c EditMailForm_WidgetFunc.c RegisterForm.c EditMailForm_WidgetTree.c LoginForm.c LoginFunction.c MainForm.c ../../function/source/mysocket.c ../../function/source/LoginModule.c ../../function/source/localfunc.c ../../function/source/RegisterModule.c `pkg-config --libs --cflags gtk+-2.0` -w
