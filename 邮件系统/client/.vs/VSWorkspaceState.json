@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\function",
+    "\\function\\include",
+    "\\function\\source",
+    "\\gtk\\include",
+    "\\gtk\\source"
+  ],
+  "SelectedNode": "\\function\\source\\mysocket.c",
+  "PreviewInSolutionExplorer": false
+}

@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\client\\function",
+    "\\client\\function\\include",
+    "\\client\\function\\source",
+    "\\server"
+  ],
+  "SelectedNode": "\\server\\clientLib.c",
+  "PreviewInSolutionExplorer": false
+}

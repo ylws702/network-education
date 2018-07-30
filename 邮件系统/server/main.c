@@ -12,13 +12,13 @@ void GetAttachedFile();
 
 int main (int argc,char* argv[])
 {
-    //DeleteSeverMail ("94");//删除邮件
-	//SendEmail(argc,argv);
-    //AddContact ("wangmingsheng","zhangwenyue","3",argc,argv);
-    // DeleteContact("wms","zhangwenyue",argc,argv);
-    //ReviseContact("zld","zhangwenyue","2","teamId",argc,argv);
-    //GetEmail();
-    //GetAttachedFile();
+    DeleteSeverMail ("94");//删除邮件
+	SendEmail(argc,argv);
+    AddContact ("wangmingsheng","zhangwenyue","3",argc,argv);
+    DeleteContact("wms","zhangwenyue",argc,argv);
+    ReviseContact("zld","zhangwenyue","2","teamId",argc,argv);
+    GetEmail();
+    GetAttachedFile();
     exit(0);
 }
 void GetAttachedFile()

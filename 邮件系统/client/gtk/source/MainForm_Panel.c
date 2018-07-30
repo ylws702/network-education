@@ -143,7 +143,8 @@ GtkWidget* paned(void)
 	gtk_signal_connect(GTK_OBJECT(deletefriend_button), "clicked",G_CALLBACK(delete_linkman),NULL);
 	
 //点击修改联系人按钮是的消息响应
-//为了和addfriendbutton 区分开，给回调函数传递一个非0参数
+//为了和addfriendbutton 区分开，给回调函数传递一个非0参数
+
 	
 //邮件文本text相关
 	text=gtk_text_view_new ();

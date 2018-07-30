@@ -668,7 +668,8 @@ int AddContact (char * pcUserId,char * pcContactId, char * pcContactName, int iT
     int client_socket=0;
 	int recvResult;    
 	memset (buffer,'\0', BUFFER_SIZE);
-	client_socket= connect_socket(SERVERIP,SERVERPORT);
+	client_socket= connect_socket(SERVERIP,SERVERPORT);
+
     sprintf(buffer,"sqlinsert|insert into ContactTable values(NULL,'%s','%s','%s',%d)",pcUserId, pcContactName, pcContactId, iTeamId);
 	printf ("string sended to server:%s\n",buffer);
 	if(send_msg(client_socket,buffer,BUFFER_SIZE)<0)
