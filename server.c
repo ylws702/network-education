@@ -23,7 +23,6 @@ struct sockaddr_in server_addr;
 struct sockaddr_in client_addr;
 int server_socket_fd = 0;
 int new_server_socket_fd = 0;
-int opt;
 
 void send_file(char* file_name, int socket);
 void recv_file(char* file_name, int sockfd);
@@ -31,6 +30,7 @@ int begain_with(char *str1, char *str2);
 void connection();
 int senddata();
 void* recvdata();
+void deal(int sockfd, pthread_t thread_id);
 
 int main(void)
 {
@@ -61,12 +61,14 @@ int main(void)
 				break;
 			}
 
-			pthread_create(&thread_id, NULL, recvdata, NULL);  //创建线程
-			pthread_detach(thread_id); // 线程分离，结束时自动回收资源
-
-			senddata();
-
-			puts("Connection closed.");
+			pid_t childid;
+			if (childid = fork() == 0)//子进程
+			{
+				printf("child process: %d created.\n", getpid());
+				close(server_socket_fd);//在子进程中关闭监听  
+				deal(new_server_socket_fd, thread_id);//处理监听的连接  
+				exit(0);
+			}
 
 			break;
 		}
@@ -170,7 +172,7 @@ void connection()
 		perror("Create Socket Failed:");
 		exit(1);
 	}
-	opt = 1;
+	int opt = 1;
 	setsockopt(server_socket_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 
 	// 绑定socket和socket地址结构
@@ -223,6 +225,7 @@ int senddata()
 
 void* recvdata()
 {
+	pid_t pid = getpid();
 	while (1)
 	{
 		// recv函数接收数据到缓冲区recv_buffer中
@@ -236,7 +239,7 @@ void* recvdata()
 		bzero(recv_msg, FILE_NAME_MAX_SIZE + 1);
 		strncpy(recv_msg, recv_buffer, strlen(recv_buffer) > FILE_NAME_MAX_SIZE ? FILE_NAME_MAX_SIZE : strlen(recv_buffer));
 		
-		printf("client: %s\n", recv_msg);
+		printf("client %d: %s\n", pid, recv_msg);
 
 		if (begain_with(recv_msg, "file:") == 1)
 		{
@@ -251,4 +254,15 @@ void* recvdata()
 			return 0;
 		}
 	}
+}
+
+void deal(int sockfd, pthread_t thread_id)
+{
+
+	pthread_create(&thread_id, NULL, recvdata, NULL);  //创建线程
+	pthread_detach(thread_id); // 线程分离，结束时自动回收资源
+
+	senddata();
+
+	puts("Connection closed.");
 }
