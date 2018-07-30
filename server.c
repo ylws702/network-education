@@ -62,10 +62,13 @@ int main(void)
 			}
 
 			pthread_create(&thread_id, NULL, recvdata, &thread_id);  //创建线程
-			//pthread_detach(thread_id); // 线程分离，结束时自动回收资源
+			pthread_detach(thread_id); // 线程分离，结束时自动回收资源
 
 			senddata();
-		
+
+			close(new_server_socket_fd);
+
+			break;
 		}
 	}
 	// 关闭监听用的socket
@@ -243,9 +246,8 @@ void* recvdata(void *arg)
 		}
 
 		// 关闭与客户端的连接
-		if (recv_msg=="\0"||!strcmp(recv_msg,"exit"))
+		if (!strcmp(recv_msg,"exit"))
 		{
-			close(new_server_socket_fd);
 			puts("Connection closed.");
 			return ((void*)0);
 		}
