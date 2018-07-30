@@ -30,7 +30,7 @@ void recv_file(char* file_name, int sockfd);
 int begain_with(char *str1, char *str2);
 void connection();
 int senddata();
-void* recvdata(void *arg);
+void* recvdata();
 
 int main(void)
 {
@@ -61,12 +61,12 @@ int main(void)
 				break;
 			}
 
-			pthread_create(&thread_id, NULL, recvdata, &thread_id);  //创建线程
+			pthread_create(&thread_id, NULL, recvdata, NULL);  //创建线程
 			pthread_detach(thread_id); // 线程分离，结束时自动回收资源
 
 			senddata();
 
-			close(new_server_socket_fd);
+			puts("Connection closed.");
 
 			break;
 		}
@@ -221,7 +221,7 @@ int senddata()
 
 }
 
-void* recvdata(void *arg)
+void* recvdata()
 {
 	while (1)
 	{
@@ -248,8 +248,7 @@ void* recvdata(void *arg)
 		// 关闭与客户端的连接
 		if (!strcmp(recv_msg,"exit"))
 		{
-			puts("Connection closed.");
-			return ((void*)0);
+			return 0;
 		}
 	}
 }

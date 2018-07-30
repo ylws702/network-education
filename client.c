@@ -190,8 +190,8 @@ int senddata()
 
 		if (!strcmp(send_msg, "exit"))
 		{
-			close(client_socket_fd);
 			puts("Connection closed.");
+			close(client_socket_fd);
 			return 0;
 		}
 	}
